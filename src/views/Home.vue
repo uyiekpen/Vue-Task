@@ -45,13 +45,19 @@
           </div>
         </div>
         <div class="md:hidden block">
-          <div class="flex py-4">
-            <div class="">
-              <input placeholder="Filter location" class="outline-none" />
+          <div class="flex p-4">
+            <div class="flex justify-between items-center w-[230px] mr-1">
+              <input
+                placeholder="Filter by location"
+                class="outline-none dark:bg-[#19202D]"
+              />
+              <Path />
             </div>
             <button
-              class="bg-[#5964E0] text-white px-2 py-2 rounded-md"
-            ></button>
+              class="bg-[#5964E0] text-white rounded-md h-8 w-8 p-2 ml-1"
+            >
+              <Toggle/>
+            </button>
           </div>
         </div>
       </div>
@@ -105,11 +111,15 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import Search from "../components/icons/Search.vue";
 import Location from "../components/icons/Location.vue";
+import Path from '../components/icons/Path.vue';
+import Toggle from "../components/icons/Toggle.vue"
 
 export default {
   components: {
     Search,
     Location,
+    Path,
+    Toggle
   },
   props: {
     isDarkMode: {
