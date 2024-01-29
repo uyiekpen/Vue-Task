@@ -44,19 +44,21 @@
             </div>
           </div>
         </div>
+
         <div class="md:hidden block">
           <div class="flex p-4">
             <div class="flex justify-between items-center w-[230px] mr-1">
               <input
                 placeholder="Filter by location"
                 class="outline-none dark:bg-[#19202D]"
+                @click="openModal"
               />
+              <Modal ref="modalRef" />
+
               <Path />
             </div>
-            <button
-              class="bg-[#5964E0] text-white rounded-md h-8 w-8 p-2 ml-1"
-            >
-              <Toggle/>
+            <button class="bg-[#5964E0] text-white rounded-md h-8 w-8 p-2 ml-1">
+              <Toggle />
             </button>
           </div>
         </div>
@@ -113,13 +115,15 @@ import Search from "../components/icons/Search.vue";
 import Location from "../components/icons/Location.vue";
 import Path from '../components/icons/Path.vue';
 import Toggle from "../components/icons/Toggle.vue"
+import Modal from '@/components/Modal.vue';
 
 export default {
   components: {
     Search,
     Location,
     Path,
-    Toggle
+    Toggle,
+    Modal
   },
   props: {
     isDarkMode: {
@@ -127,12 +131,23 @@ export default {
       required: true,
     },
   },
+
+
+
   setup() {
     const Job = ref([]);
     const visibleJobs = ref([]);
     const isLoading = ref(true);
     const router = useRouter();
     const searchData = ref("")
+    const modalRef = ref(null);
+
+const openModal = () => {
+  if (modalRef.value) {
+    modalRef.value.openModal();
+  }
+};
+
 
     const navigatetoJob = (jobId) => {
       router.push(`/details/${jobId}`);
@@ -192,7 +207,9 @@ export default {
       formatDate,
       showMore,
       searchData,
-      Search
+      Search,
+      openModal,
+    modalRef,
     };
   },
 };
