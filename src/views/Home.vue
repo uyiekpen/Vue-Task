@@ -48,11 +48,9 @@
         <div class="md:hidden block">
           <div class="flex p-4">
             <div class="flex justify-between items-center w-[230px] mr-1">
-              <input
-                placeholder="Filter by location"
-                class="outline-none dark:bg-[#19202D]"
-                @click="openModal"
-              />
+              <div class="outline-none dark:bg-[#19202D]" @click="openModal">
+                Filter by location
+              </div>
               <Modal ref="modalRef" />
 
               <Path />
