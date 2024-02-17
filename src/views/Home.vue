@@ -14,6 +14,7 @@
               <input
                 placeholder="Filter by title, companies,expertise…"
                 class="w-[300px] outline-none px-2 dark:bg-[#19202D]"
+                v-model="searchData"
               />
             </div>
             <div
@@ -38,7 +39,10 @@
             </div>
 
             <div>
-              <button class="bg-[#5964E0] text-white px-4 py-2 rounded-md">
+              <button
+                class="bg-[#5964E0] text-white px-4 py-2 rounded-md"
+                @click="SearchData"
+              >
                 Search
               </button>
             </div>
@@ -172,15 +176,15 @@ const openModal = () => {
       }
     };
 
-    const SearchData = () => {
-      const query = searchData.value.toLowerCase
-      Job.value =  Job.value.filter(job => {
-        return (
-          job.name.toLowerCase().includes(query) ||
-          job.company.name.toLowerCase().includes(query) ||
-          job.expertise.toLowerCase().includes(query)
-        )
-      })
+    const SearchJobs = () => {
+      const query = searchData.value.toLowerCase();
+  Job.value = visibleJobs.value.filter(job => {
+    return (
+      job.name.toLowerCase().includes(query) ||
+      job.company.name.toLowerCase().includes(query) ||
+      job.expertise.toLowerCase().includes(query)
+    );
+  });
     }
 
     const fetchData = async () => {
@@ -205,6 +209,7 @@ const openModal = () => {
       formatDate,
       showMore,
       searchData,
+      SearchData: SearchJobs,
       Search,
       openModal,
     modalRef,
