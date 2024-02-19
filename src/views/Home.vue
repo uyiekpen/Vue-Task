@@ -52,10 +52,12 @@
         <div class="md:hidden block">
           <div class="flex p-4">
             <div class="flex justify-between items-center w-[230px] mr-1">
-              <div class="outline-none dark:bg-[#19202D]" @click="openModal">
+              <div class="outline-none dark:bg-[#19202D]" @click="openModal" >
                 Filter by location
               </div>
-              <Modal ref="modalRef" />
+              <Modal ref="modalRef" :isDarkMode="isDarkMode"
+              :searchData="searchData"
+              :searchJobs="SearchJobs" />
 
               <Path />
             </div>
@@ -177,7 +179,7 @@ export default {
       }
     };
 
-
+   
 
     const fetchData = async () => {
       try {
@@ -196,13 +198,16 @@ export default {
       showMore();
       const query = searchData.value.toLowerCase();
       // console.log(query)
-
+      
       Job.value = visibleJobs.value.filter(job => {
         return (
           job.name.toLowerCase().includes(query) ||
-          job.company.name.toLowerCase().includes(query)
+          job.company.name.toLowerCase().includes(query) 
           // ||job.expertise.toLowerCase().includes(query)
+          
         );
+        closeModal();
+
       });
 
     //  console.log(Job.value);

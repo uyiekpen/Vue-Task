@@ -28,7 +28,9 @@
             />
             <div class="mt-3 text-left sm:mt-0 sm:ml-4 sm:text-left">
               <div class="w-[280px]">
-                <label class="mx-2 font-semibold  w-[280px] h-12 dark:text-white">
+                <label
+                  class="mx-2 font-semibold  w-[280px] h-12 dark:text-white"
+                >
                   <input type="checkbox" class="mr-2  dark:bg-transparent " />
                   Full-time only
                 </label>
@@ -36,10 +38,13 @@
             </div>
           </div>
         </div>
-        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-[#19202D] ">
+        <div
+          class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-[#19202D] "
+        >
           <button
             type="button"
             class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#5964E0] text-base font-medium text-white hover:bg-[#5964E0] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5964E0] sm:ml-3 sm:w-auto sm:text-sm"
+            @click="SearchJobs"
           >
             Search
           </button>
@@ -50,19 +55,37 @@
 </template>
 
 <script>
+import { ref, defineProps } from 'vue';
+
 export default {
-  data() {
-    return {
-      show: false,
-    };
+
+  props: {
+    isDarkMode: Boolean,
+    searchData: String,
+    searchJobs: Function,
   },
-  methods: {
-    openModal() {
-      this.show = true;
-    },
-    closeModal() {
-      this.show = false;
-    },
+
+  setup(props) {
+    const show = ref(false);
+
+
+
+
+    const openModal = () => {
+      show.value = true;
+    };
+
+    const closeModal = () => {
+      show.value = false;
+    };
+
+
+
+    return {
+      show,
+      openModal,
+      closeModal,
+    };
   },
 };
 </script>
