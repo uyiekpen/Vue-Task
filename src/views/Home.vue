@@ -41,7 +41,7 @@
             <div>
               <button
                 class="bg-[#5964E0] text-white px-4 py-2 rounded-md"
-                @click="SearchData"
+                @click="SearchJobs"
               >
                 Search
               </button>
@@ -144,11 +144,11 @@ export default {
     const searchData = ref("")
     const modalRef = ref(null);
 
-const openModal = () => {
-  if (modalRef.value) {
-    modalRef.value.openModal();
-  }
-};
+    const openModal = () => {
+      if (modalRef.value) {
+        modalRef.value.openModal();
+      }
+    };
 
 
     const navigatetoJob = (jobId) => {
@@ -173,31 +173,40 @@ const openModal = () => {
           ...visibleJobs.value,
           ...Job.value.slice(visibleJobs.value.length, visibleJobs.value.length + batchSize),
         ];
+        console.log(visibleJobs.value);
       }
     };
 
-    const SearchJobs = () => {
-      const query = searchData.value.toLowerCase();
-  Job.value = visibleJobs.value.filter(job => {
-    return (
-      job.name.toLowerCase().includes(query) ||
-      job.company.name.toLowerCase().includes(query) ||
-      job.expertise.toLowerCase().includes(query)
-    );
-  });
-    }
+
 
     const fetchData = async () => {
       try {
         const response = await axios.get("https://www.themuse.com/api/public/jobs?category=Software%20Engineer&level=Entry%20Level&level=Mid%20Level&level=Senior%20Level&level=Internship&page=3&descending=true");
         Job.value = response.data.results;
+        // console.log(Job.value);
         isLoading.value = false;
-        console.log('API Response:', response.data.results);
+        // console.log('API Response:', response.data.results);
       } catch (error) {
         console.error('Error fetching data:', error.message);
         isLoading.value = false;
       }
     };
+
+    const SearchJobs = () => {
+      showMore();
+      const query = searchData.value.toLowerCase();
+      // console.log(query)
+
+      Job.value = visibleJobs.value.filter(job => {
+        return (
+          job.name.toLowerCase().includes(query) ||
+          job.company.name.toLowerCase().includes(query)
+          // ||job.expertise.toLowerCase().includes(query)
+        );
+      });
+
+    //  console.log(Job.value);
+    }
 
     onMounted(fetchData);
 
@@ -209,10 +218,10 @@ const openModal = () => {
       formatDate,
       showMore,
       searchData,
-      SearchData: SearchJobs,
+      SearchJobs,
       Search,
       openModal,
-    modalRef,
+      modalRef,
     };
   },
 };
